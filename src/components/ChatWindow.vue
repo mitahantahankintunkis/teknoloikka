@@ -103,13 +103,13 @@ function reply(id) {
 <style scoped>
 .chat-window {
     position: absolute;
-    bottom: 5rem;
+    bottom: 0;
     right: 5rem;
     width: 30rem;
-    height: calc(100vh - 10rem);
+    height: calc(100vh - 5rem);
     display: flex;
     flex-direction: column;
-    border-radius: 1rem;
+    border-radius: 1rem 1rem 0 0;
     background-color: white;
     box-shadow: #dddddd 0px 0px 8px;
     transition: height 100ms;

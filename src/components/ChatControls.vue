@@ -25,7 +25,7 @@ const emit = defineEmits([ 'click' ]);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 85%;
+    height: 100%;
     gap: 0.5rem;
     padding: 1rem;
 }
