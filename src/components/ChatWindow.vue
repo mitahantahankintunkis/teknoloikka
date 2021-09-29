@@ -146,27 +146,6 @@ function reply(id) {
     height: 15rem;
     border-top: 1px solid #dddddd;
     border-radius: 0 0 1rem 1rem;
-}
-
-.circle-button > svg {
-    width: 2.8rem;
-    height: 2.8rem;
-    padding: 1.1rem;
-}
-
-.circle-button {
-    position: absolute;
-    right: 5rem;
-    bottom: 5rem;
-    width: 5rem;
-    height: 5rem;
-    border-radius: 2.5rem;
-    background-color: #16a8cd;
-    cursor: pointer;
-    transition: background-color 50ms;
-}
-
-.circle-button:hover {
-    background-color: #77d5ec;
+    overflow-y: auto;
 }
 </style>
