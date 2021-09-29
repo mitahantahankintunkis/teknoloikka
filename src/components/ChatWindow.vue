@@ -138,7 +138,7 @@ function reply(id) {
 }
 
 .chat-messages {
-    height: calc(100vh - 27rem);
+    height: calc(100vh - 19rem);
     overflow-y: auto;
 }
 
