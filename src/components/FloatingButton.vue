@@ -18,9 +18,9 @@ const emit = defineEmits(['click']);
 }
 
 .circle-button {
-    position: absolute;
-    right: 5rem;
-    bottom: 5rem;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
     width: 5rem;
     height: 5rem;
     border-radius: 2.5rem;
