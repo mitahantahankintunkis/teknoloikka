@@ -109,9 +109,9 @@ function reply(id) {
     height: calc(100vh - 2rem);
     display: flex;
     flex-direction: column;
-    border-radius: 1rem 1rem 0 0;
+    border-radius: 1rem;
     background-color: white;
-    box-shadow: #dddddd 0px 0px 8px;
+    box-shadow: #dddddd 0px 0px 4px;
     transition: height 100ms;
 }
 
