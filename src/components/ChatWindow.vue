@@ -4,7 +4,7 @@ import ChatControls from "./ChatControls.vue";
 import { ref } from "@vue/reactivity";
 import { inject } from "@vue/runtime-core";
 import { nanoid } from 'nanoid';
-import { addDoc, collection } from "@firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
 
 
 const emit = defineEmits(['close']);
@@ -57,14 +57,17 @@ function getUid() {
     return uid;
 }
 
-function saveToDb(from, to, label) {
+function saveToDb(from, to, label, edgeId) {
     const uid = getUid();
     try {
-        const coll = collection(db, `conversations/by-users/${uid}`);
+        const coll = collection(db, 'conversations');
         const docRef = addDoc(coll, {
+            uid: uid,
+            edge_id: edgeId,
             parent: from,
             next: to,
             message: label,
+            timestamp: serverTimestamp(),
         });
     } catch(e) {
         console.error('Could not write to the database', e);
@@ -72,10 +75,10 @@ function saveToDb(from, to, label) {
 }
 
 function reply(id) {
-    const { to, label } = edges.find((e) => e.id === id);
+    const { id: edgeId, to, label } = edges.find((e) => e.id === id);
     const node = nodes.find((n) => n.id === to);
 
-    saveToDb(curNode.value, to, label);
+    saveToDb(curNode.value, to, label, edgeId);
 
     history.value.push({
         id: `e-${id}`,
