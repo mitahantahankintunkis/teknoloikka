@@ -12,6 +12,7 @@ function toggleChat() {
 }
 </script>
 
+
 <template>
 <Header></Header>
 <main>
@@ -20,6 +21,7 @@ function toggleChat() {
 <ChatWindow @close="toggleChat" v-if="chatOpen"></ChatWindow>
 <FloatingButton @click="toggleChat" v-else></FloatingButton>
 </template>
+
 
 <style>
 #app {

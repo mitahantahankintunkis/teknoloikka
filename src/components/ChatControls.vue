@@ -14,7 +14,7 @@ const emit = defineEmits([ 'click' ]);
 <template>
 <div class="replies">
     <div v-for="reply in replies" :key="reply.id" @click="emit('click', reply.id)" class="reply">
-        {{ reply.reply }}
+        {{ reply.label }}
     </div>
 </div>
 </template>
