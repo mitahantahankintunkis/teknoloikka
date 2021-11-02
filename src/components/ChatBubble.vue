@@ -26,9 +26,8 @@ const { message, own } = toRefs(props);
 }
 
 .own-msg {
-    background-color: #e5e3ef;
-    background-color: #e6deeb;
-    border-radius: 0.5rem 0.5rem 0 0.5rem;
+    background-color: #eeeeee;
+    border-radius: 1rem 1rem 0 1rem;
     max-width: 70%;
     text-align: end;
     align-self: flex-end;
@@ -36,8 +35,10 @@ const { message, own } = toRefs(props);
 
 .bot-msg {
     background-color: #8cc6d4;
-    border-radius: 0.5rem 0.5rem 0.5rem 0;
-    width: 70%;
+    background-color: #b6d7df;
+    border-radius: 1rem 1rem 1rem 0;
+    max-width: 70%;
+    width: max-content;
 }
 
 </style>

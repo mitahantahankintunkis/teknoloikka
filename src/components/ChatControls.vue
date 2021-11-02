@@ -32,6 +32,7 @@ const emit = defineEmits([ 'click' ]);
 .reply {
     padding: 0.5rem 1rem;
     background-color: #e6deeb;
+    background-color: #eeeeee;
     color: #003a49;
     border-radius: 0.5rem;
     text-align: center;
@@ -41,5 +42,6 @@ const emit = defineEmits([ 'click' ]);
 
 .reply:hover {
     background-color: #f0ebf3;
+    background-color: #f3f3f3;
 }
 </style>

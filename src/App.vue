@@ -31,7 +31,8 @@ function toggleChat() {
 }
 
 main {
-    width: 50vw;
+    width: 80vw;
+    max-width: 50rem;
     margin: 15rem auto 0 auto;
 }
 </style>

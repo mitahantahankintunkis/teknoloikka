@@ -12,39 +12,57 @@ const db = inject('db');
 
 let id = 0;
 const nodes = [
-    { id: id++, label: 'Beep-boop, olen UKV-botti 🤖. Kuinka voin auttaa?', },
-    { id: id++, label: 'Miten menee?', },
-    { id: id++, label: 'Miten arvostelisit Krapin pippalot?', },
-    { id: id++, label: 'Mitä haluat tehdä huomenna?', },
-    { id: id++, label: 'Kiitos vastauksista! Palaan keskustelun alkuun, jos haluat muuttaa vastauksiasi', },
+    { id: id++, label: 'Beep-boop, olen UKV-botti 🤖. Minulla olisi muutama kysymys Krapin bootcapmista', },
+    { id: id++, label: 'Voit keskustella minun kanssani painamalla alla olevia vaihtoehtoja. Kaikki vastaukset ovat täysin anonyymejä, jotenka voit vastata niihin huoletta', },
+    { id: id++, label: 'Työstimme eilen oppiraportteja. Missä vaiheessa arvioisit teidän raporttinne olevan?', },
+    { id: id++, label: 'Miten arvioisitte eilisen illallisen?', },
+    { id: id++, label: 'Monta tuntia sait nukuttua viime yönä?', },
+    { id: id++, label: 'Hienoa!', },
+    { id: id++, label: 'Muutaman päivän selviää hieman alhaisemmalla unimäärällä, mutta pidemmän päälle kannattaa nukkua yli kahdeksan tuntia päivässä. Jos päivän aikana alkaa väsyttämään, niin kannattaa harkita lyhyitä 10 minuutin päiväunia', },
+    { id: id++, label: 'Yöunien suositeltu mitta on vähintään kahdeksan tuntia. Jo yhden tunnin ylimääräinen yöuni saa ihmeitä aikaan, olet virkeämpi, innovatiivisempi ja muisti lakkaa pätkimästä.', },
+    { id: id++, label: 'Jos olet autolla matkassa, niin kannattaa ottaa päiväunet ennen lähtöä. Vähäisten yöunien vaikutus ajamiseen on verrattavissa humalatilaan', },
+    { id: id++, label: 'Asteikolla 1-5, miten yleisesti arvioisit minun kanssani keskustelemista?', },
+    { id: id++, label: 'Kiitos vastauksistasi, ja mukavaa päivänjatkoa!', },
 ];
 
 id = 0;
 const edges = [
-    { id: id++, from: 0, to: 1, label: 'Haluan vastata Krapin kyselyyn', },
-    { id: id++, from: 1, to: 2, label: 'Mainiosti!', },
-    { id: id++, from: 1, to: 2, label: 'Hyvin', },
-    { id: id++, from: 1, to: 2, label: 'Menettelee', },
-    { id: id++, from: 1, to: 2, label: 'Hengissä vielä', },
-    { id: id++, from: 2, to: 3, label: '5', },
-    { id: id++, from: 2, to: 3, label: '4', },
-    { id: id++, from: 2, to: 3, label: '3', },
-    { id: id++, from: 2, to: 3, label: '2', },
-    { id: id++, from: 2, to: 3, label: '1', },
-    { id: id++, from: 3, to: 4, label: 'Työskennellä', },
-    { id: id++, from: 3, to: 4, label: 'Jutella porukan kanssa', },
-    { id: id++, from: 3, to: 4, label: 'Rentoutua', },
-    { id: id++, from: 3, to: 4, label: 'Ryypätä', },
-    { id: id++, from: 4, to: 0, label: 'Palaa alkuun', },
+    { id: id++, from: 0, to: 1, label: null, },
+
+    { id: id++, from: 1, to: 2, label: 'Haluan vastata Krapin kyselyyn', },
+
+    { id: id++, from: 2, to: 3, label: 'Sen on valmis', },
+    { id: id++, from: 2, to: 3, label: 'Viimeistelyä vaille valmis', },
+    { id: id++, from: 2, to: 3, label: 'Se on noin puolivälissä', },
+    { id: id++, from: 2, to: 3, label: 'Vasta alkuvaiheissa', },
+
+    { id: id++, from: 3, to: 4, label: '⭐⭐⭐⭐⭐', },
+    { id: id++, from: 3, to: 4, label: '⭐⭐⭐⭐', },
+    { id: id++, from: 3, to: 4, label: '⭐⭐⭐', },
+    { id: id++, from: 3, to: 4, label: '⭐⭐', },
+    { id: id++, from: 3, to: 4, label: '⭐', },
+
+    { id: id++, from: 4, to: 5, label: 'Yli 8 tuntia', },
+    { id: id++, from: 4, to: 6, label: '6-8 tuntia', },
+    { id: id++, from: 4, to: 7, label: '4-6 tuntia', },
+    { id: id++, from: 4, to: 8, label: 'Alle 4 tuntia', },
+
+    { id: id++, from: 5, to: 9, label: null, },
+    { id: id++, from: 6, to: 9, label: null, },
+    { id: id++, from: 7, to: 9, label: null, },
+    { id: id++, from: 8, to: 9, label: null, },
+
+    { id: id++, from: 9, to: 10, label: '5', },
+    { id: id++, from: 9, to: 10, label: '4', },
+    { id: id++, from: 9, to: 10, label: '3', },
+    { id: id++, from: 9, to: 10, label: '2', },
+    { id: id++, from: 9, to: 10, label: '1', },
 ];
 
 const curNode = ref(0);
-const replies = ref(edges.filter((e) => e.from === curNode.value));
-const history = ref([{
-        id: nodes[curNode.value].id,
-        message: nodes[curNode.value].label,
-        own: false,
-}]);
+const replies = ref([]);
+const history = ref([]);
+const canReply = ref(true);
 
 // Gets and generates a random anonymous user id for the user
 function getUid() {
@@ -74,9 +92,42 @@ function saveToDb(from, to, label, edgeId) {
     }
 }
 
+// Sends the message found in node[id]
+function botReply(id, continuation=false, depth=0) {
+    canReply.value = false;
+
+    const node = nodes.find((n) => n.id === id);
+    const delay = continuation ? 100 : (Math.random() / 2 + 0.5) * 800;
+
+    if (depth > 20) {
+        console.error('Too many chained replies.');
+        return;
+    }
+
+    setTimeout(() => {
+        let failsafe = 0;
+
+        const newReplies = edges.filter((e) => e.from === node.id);
+        if (newReplies.length > 0 && !newReplies[0].label) {
+            botReply(newReplies[0].to, continuation, depth+1);
+        } else {
+            replies.value = edges.filter((e) => e.from === node.id);
+            canReply.value = true;
+        }
+
+        curNode.value = node.id;
+        history.value.push({
+            id: `n-${node.id}`,
+            message: node.label,
+            own: false,
+        });
+    }, delay);
+}
+
 function reply(id) {
+    if (!canReply.value) return;
+    canReply.value = false;
     const { id: edgeId, to, label } = edges.find((e) => e.id === id);
-    const node = nodes.find((n) => n.id === to);
 
     saveToDb(curNode.value, to, label, edgeId);
 
@@ -86,31 +137,36 @@ function reply(id) {
         own: true,
     });
 
-    setTimeout(() => {
-        replies.value = edges.filter((e) => e.from === node.id);
-        curNode.value = node.id;
-        history.value.push({
-            id: `n-${node.id}`,
-            message: node.label,
-            own: false,
-        });
-    }, (Math.random() + 0.5) * 800);
+    botReply(to);
 }
 
+function reload() {
+    botReply(0);
+}
+
+botReply(0);
 </script>
 
 
 <template>
 <div class="chat-window">
     <div class="chat-header">
-        <p>Heippulishei</p>
-        <font-awesome-icon @click="emit('close')" color="#eeeeee" icon="chevron-down" />
+        <div class="chat-header-left">
+            <font-awesome-icon color="#eeeeee" icon="user-circle" />
+            <p>UKV-botti</p>
+        </div>
+        <div class="chat-header-right">
+            <font-awesome-icon @click="reload" color="#eeeeee" icon="redo" />
+            <font-awesome-icon @click="emit('close')" color="#eeeeee" icon="chevron-down" />
+        </div>
     </div>
-    <div class="chat-messages">
-        <ChatHistory :history="history"></ChatHistory>
-    </div>
-    <div class="chat-controls">
-        <ChatControls @click="reply" :replies="replies"></ChatControls>
+    <div class="chat-content">
+        <div class="chat-messages">
+            <ChatHistory :history="history"></ChatHistory>
+        </div>
+        <div class="chat-controls">
+            <ChatControls @click="reply" :replies="replies"></ChatControls>
+        </div>
     </div>
 </div>
 </template>
@@ -127,7 +183,7 @@ function reply(id) {
     flex-direction: column;
     border-radius: 1rem;
     background-color: white;
-    box-shadow: #dddddd 0px 0px 4px;
+    box-shadow: #c3c3c3 0px 0px 8px;
     transition: height 100ms;
 }
 
@@ -135,14 +191,25 @@ function reply(id) {
     height: 3.6rem;
     background-color: #16a8cd;
     border-radius: 1rem 1rem 0 0;
+    color: white;
     display: flex;
     justify-content: space-between;
 }
 
-.chat-header > svg {
+.chat-header-left {
+    display: flex;
+}
+
+.chat-header-left > svg {
     width: 2rem;
     height: 2rem;
-    margin: 0.9rem 0.9rem 0 0;
+    margin: 0.9rem 0.9rem 0 0.9rem;
+}
+
+.chat-header-right > svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin: 1.1rem 0.9rem 0 0;
     cursor: pointer;
 }
 
@@ -153,16 +220,28 @@ function reply(id) {
     line-height: 1.9rem;
 }
 
+.chat-content {
+    height: calc(100vh - 5.7rem);
+}
+
 .chat-messages {
-    height: calc(100vh - 19rem);
+    height: 70%;
     overflow-y: auto;
 }
 
 .chat-controls {
-    height: 15rem;
+    height: 30%;
     border-top: 1px solid #dddddd;
     border-radius: 0 0 1rem 1rem;
     overflow-y: auto;
+}
+
+@media only screen 
+  and (max-device-width: 560px) {
+
+    .chat-window {
+        width: calc(100vw - 2rem);
+    }
 }
 </style>
 
@@ -250,4 +329,34 @@ function reply(id) {
 //    }, 1000);
 //
 //}
+
+
+let id = 0;
+const nodes = [
+    { id: id++, label: 'Beep-boop, olen UKV-botti 🤖. Kuinka voin auttaa?', },
+    { id: id++, label: 'Miten menee?', },
+    { id: id++, label: 'Miten arvostelisit Krapin pippalot?', },
+    { id: id++, label: 'Mitä haluat tehdä huomenna?', },
+    { id: id++, label: 'Kiitos vastauksista! Palaan keskustelun alkuun, jos haluat muuttaa vastauksiasi', },
+];
+
+id = 0;
+const edges = [
+    { id: id++, from: 0, to: 1, label: 'Haluan vastata Krapin kyselyyn', },
+    { id: id++, from: 1, to: 2, label: 'Mainiosti!', },
+    { id: id++, from: 1, to: 2, label: 'Hyvin', },
+    { id: id++, from: 1, to: 2, label: 'Menettelee', },
+    { id: id++, from: 1, to: 2, label: 'Hengissä vielä', },
+    { id: id++, from: 2, to: 3, label: '5', },
+    { id: id++, from: 2, to: 3, label: '4', },
+    { id: id++, from: 2, to: 3, label: '3', },
+    { id: id++, from: 2, to: 3, label: '2', },
+    { id: id++, from: 2, to: 3, label: '1', },
+    { id: id++, from: 3, to: 4, label: 'Työskennellä', },
+    { id: id++, from: 3, to: 4, label: 'Jutella porukan kanssa', },
+    { id: id++, from: 3, to: 4, label: 'Rentoutua', },
+    { id: id++, from: 3, to: 4, label: 'Ryypätä', },
+    { id: id++, from: 4, to: 0, label: 'Palaa alkuun', },
+];
+
 -->
